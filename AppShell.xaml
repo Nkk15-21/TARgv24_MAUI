@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-    x:Class="TARgv24_MAUI.AppShell"
+    x:Class="TARgv24.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:TARgv24_MAUI"
-    Title="TARgv24_MAUI">
+    xmlns:local="clr-namespace:TARgv24"
+    Title="TARgv24">
 
+    <Shell.TitleView>
+        <Label
+            Text="Näidised"
+            FontFamily="Lovin Kites 400"
+            FontSize="Title"
+            TextColor="DarkGoldenrod"
+            VerticalTextAlignment="Center"
+            HorizontalOptions="Center"
+            Padding="25,25,25,0"
+            HeightRequest="50"/>
+    </Shell.TitleView>
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Avaleht"
+        ContentTemplate="{DataTemplate local:StartPage}"
+        Route="StartPage" />
 
 </Shell>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace TARgv24_MAUI
+namespace TARgv24
 {
     public static class MauiProgram
     {

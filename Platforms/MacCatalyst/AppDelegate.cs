@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace TARgv24_MAUI
+namespace TARgv24
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

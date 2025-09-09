@@ -1,10 +1,11 @@
-﻿namespace TARgv24_MAUI
+﻿namespace TARgv24
 {
     public partial class App : Application
     {
         public App()
         {
             InitializeComponent();
+            NavigationPage MainPage = new NavigationPage(new AppShell());
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

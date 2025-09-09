@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace TARgv24_MAUI
+namespace TARgv24
 {
     [Application]
     public class MainApplication : MauiApplication

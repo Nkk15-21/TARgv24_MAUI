@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace TARgv24_MAUI
+namespace TARgv24
 {
     public class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace TARgv24_MAUI
+﻿namespace TARgv24
 {
     public partial class AppShell : Shell
     {

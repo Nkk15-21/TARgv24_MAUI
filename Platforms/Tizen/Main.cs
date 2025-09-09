@@ -2,7 +2,7 @@ using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
-namespace TARgv24_MAUI
+namespace TARgv24
 {
     internal class Program : MauiApplication
     {
