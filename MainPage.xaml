@@ -4,6 +4,7 @@
              x:Class="TARgv24.MainPage">
 
     <ScrollView>
+        
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
@@ -31,7 +32,8 @@
                 LineBreakMode="WordWrap"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+                HorizontalOptions="Fill" 
+                />
         </VerticalStackLayout>
     </ScrollView>
 
