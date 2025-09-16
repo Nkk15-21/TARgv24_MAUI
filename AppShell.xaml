@@ -18,8 +18,9 @@
             HeightRequest="50"/>
     </Shell.TitleView>
     <ShellContent
-        Title="Avaleht"
-        ContentTemplate="{DataTemplate local:StartPage}"
-        Route="StartPage" />
+        Title="Avaleht" ContentTemplate="{DataTemplate local:StartPage}" Route="StartPage" />
+    <ShellContent 
+        Title="Valgusfoor" ContentTemplate="{DataTemplate local:ValgusfoorPage}" />
+
 
 </Shell>

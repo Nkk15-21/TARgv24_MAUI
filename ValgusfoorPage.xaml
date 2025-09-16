@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YourNamespace.ValgusfoorPage"
+             Title="Valgusfoor">
+
+    <ContentPage.Resources>
+        <Color x:Key="OffGray">#B0B0B0</Color>
+        <Color x:Key="RedOn">#E53935</Color>
+        <Color x:Key="YellowOn">#FDD835</Color>
+        <Color x:Key="GreenOn">#43A047</Color>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="24">
+        <!-- Заголовок/статус -->
+        <Label x:Name="statusLabel"
+               Grid.Row="0"
+               Text="Vali valgus"
+               FontSize="24"
+               HorizontalOptions="Center"
+               Margin="0,0,0,12"/>
+
+        <!-- Три огня светофора -->
+        <VerticalStackLayout Grid.Row="1" Spacing="16"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center">
+            <Frame x:Name="redBox"
+                   WidthRequest="120" HeightRequest="120"
+                   CornerRadius="60" HasShadow="False"
+                   BorderColor="Black" BackgroundColor="{StaticResource OffGray}">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="RedTapped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Frame x:Name="yellowBox"
+                   WidthRequest="120" HeightRequest="120"
+                   CornerRadius="60" HasShadow="False"
+                   BorderColor="Black" BackgroundColor="{StaticResource OffGray}">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="YellowTapped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Frame x:Name="greenBox"
+                   WidthRequest="120" HeightRequest="120"
+                   CornerRadius="60" HasShadow="False"
+                   BorderColor="Black" BackgroundColor="{StaticResource OffGray}">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="GreenTapped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+        </VerticalStackLayout>
+
+        <!-- Кнопки -->
+        <VerticalStackLayout Grid.Row="2" Spacing="8">
+            <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                <Button x:Name="btnOn" Text="Sisse" Clicked="OnClicked"/>
+                <Button x:Name="btnOff" Text="Välja" Clicked="OffClicked"/>
+            </HorizontalStackLayout>
+
+            <!-- Доп. фичи (необязательно) -->
+            <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+                <Button x:Name="btnNight" Text="Öörežiim" Clicked="NightClicked"/>
+                <Button x:Name="btnAuto" Text="Automaatrežiim" Clicked="AutoClicked"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
