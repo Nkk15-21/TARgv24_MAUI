@@ -6,18 +6,17 @@
     <VerticalStackLayout>
         <Label 
             x:Name="label"
-            Text="Vajujts siia"
+            Text="Vajuta siia"
             VerticalOptions="Center" 
             HorizontalOptions="Center"
-            FontSize="Subtitle"
-            TextColor="AliceBlue"
+            FontSize="Title"
+            TextColor="DarkGreen"
             FontAttributes="Bold">
 
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Tapped="Klik_pealdise_peal"/>
             </Label.GestureRecognizers>
-            
+
         </Label>
-            
     </VerticalStackLayout>
 </ContentPage>
