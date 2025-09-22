@@ -3,23 +3,19 @@
     x:Class="TARgv24.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:TARgv24"
-    Title="TARgv24">
+    xmlns:pages="clr-namespace:YourNamespace">
 
-    <Shell.TitleView>
-        <Label
-            Text="Näidised"
-            FontFamily="Lovin Kites 400"
-            FontSize="Title"
-            TextColor="DarkGoldenrod"
-            VerticalTextAlignment="Center"
-            HorizontalOptions="Center"
-            Padding="0,0,0,0"
-            HeightRequest="50"/>
-    </Shell.TitleView>
+    <!-- Заголовок и т.д. оставь как есть -->
+
     <ShellContent
         Title="Avaleht"
-        ContentTemplate="{DataTemplate local:StartPage}"
+        ContentTemplate="{DataTemplate pages:StartPage}"
         Route="StartPage" />
+
+    <!-- ДОБАВЬ ЭТО -->
+    <ShellContent
+        Title="Valgusfoor"
+        ContentTemplate="{DataTemplate pages:ValgusfoorPage}"
+        Route="ValgusfoorPage" />
 
 </Shell>

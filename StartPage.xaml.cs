@@ -1,40 +1,67 @@
-using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 
 namespace TARgv24;
 
 public partial class StartPage : ContentPage
 {
-	public List<ContentPage> lehed= new List<ContentPage>() { new TekstPage(), new FigurePage(), new TimerPage(), new DateTimePage(), new N�idisPage_lumi()};
-	public List<string> tekstid= new List<string>() { "Tee lahti leht Tekst'ga", "Tee lahti Figure leht", "K�ivita taimeri", "Kuup�evad ja kellaajad" , "Viska"};
-	ScrollView sv;
-	VerticalStackLayout vsl;
+    // Один список с элементами меню: текст + фабрика создания страницы.
+    private readonly List<(string Text, Func<Page> Create)> _items = new()
+    {
+        ("Tee lahti leht tekstiga", () => new TekstPage()),
+        ("Tee lahti Figure leht",   () => new FigurePage()),
+        ("Käivita taimeri",         () => new TimerPage()),
+        ("Kuupäevad ja kellaajad",  () => new DateTimePage()),
+        ("Viska",                   () => new NäidisPage_lumi()),
+        //    ДОБАВИЛ светофор
+        ("Ava Valgusfoor",          () => new ValgusfoorPage()),
+    };
+
     public StartPage()
-	{
-		//InitializeComponent();
-		Title = "Avaleht";
-		vsl = new VerticalStackLayout { BackgroundColor = Color.FromRgb(120, 30 ,50) };
-		for (int i = 0; i < lehed.Count; i++)
-		{
-			Button nupp= new Button 
-			{ 
-				Text = tekstid[i], 
-				FontSize = 20, 
-				BackgroundColor = Color.FromRgb(200, 200, 100), 
-				TextColor = Colors.Black,
-				CornerRadius = 20,
-				FontFamily="Lovin Kites 400",
-				ZIndex=i
+    {
+        Title = "Avaleht";
+
+        var vsl = new VerticalStackLayout
+        {
+            BackgroundColor = Color.FromRgb(120, 30, 50),
+            Padding = new Thickness(24),
+            Spacing = 12
+        };
+
+        for (int i = 0; i < _items.Count; i++)
+        {
+            var (text, _) = _items[i];
+            var btn = new Button
+            {
+                Text = text,
+                FontSize = 20,
+                BackgroundColor = Color.FromRgb(200, 200, 100),
+                TextColor = Colors.Black,
+                CornerRadius = 20,
+                FontFamily = "Lovin Kites 400",
+                CommandParameter = i // ← вместо ZIndex
             };
-			vsl.Add(nupp);
-            nupp.Clicked += Nupp_Clicked;
+            btn.Clicked += MenuButton_Clicked;
+            vsl.Add(btn);
         }
-		sv = new ScrollView { Content = vsl };
-		Content = sv;
+
+        Content = new ScrollView { Content = vsl };
     }
 
-    private async void Nupp_Clicked(object? sender, EventArgs e)
+    private async void MenuButton_Clicked(object? sender, EventArgs e)
     {
-        Button nupp = (Button)sender;
-		await Navigation.PushAsync(lehed[nupp.ZIndex]);
+        if (sender is not Button b || b.CommandParameter is not int index) return;
+
+        // Создаём новую страницу по фабрике и пушим в стек навигации
+        var page = _items[index].Create();
+
+        // Если приложение у тебя на NavigationPage — это верный путь:
+        await Navigation.PushAsync(page);
+
+        // Если используешь Shell — лучше так:
+        // await Shell.Current.Navigation.PushAsync(page); 
+        // или зарегистрировать route и GoToAsync(route)
     }
 }

@@ -1,10 +1,12 @@
-﻿namespace TARgv24
+﻿using Microsoft.Maui.Controls;
+
+namespace TARgv24;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        Routing.RegisterRoute(nameof(ValgusfoorPage), typeof(ValgusfoorPage));
     }
 }
