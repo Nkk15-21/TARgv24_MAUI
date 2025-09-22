@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+//using CommunityToolkit.Maui;//Lisa NuGet:
 
 namespace TARgv24
 {
