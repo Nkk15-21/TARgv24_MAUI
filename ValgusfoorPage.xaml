@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
              x:Class="YourNamespace.ValgusfoorPage"
              Title="Valgusfoor">
 
     <ContentPage.Resources>
+        <!-- Цвета -->
         <Color x:Key="OffGray">#B0B0B0</Color>
         <Color x:Key="RedOn">#E53935</Color>
         <Color x:Key="YellowOn">#FDD835</Color>
@@ -12,7 +14,7 @@
     </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,*,Auto" Padding="24">
-        <!-- Заголовок/статус -->
+        <!-- Статус -->
         <Label x:Name="statusLabel"
                Grid.Row="0"
                Text="Vali valgus"
@@ -20,36 +22,50 @@
                HorizontalOptions="Center"
                Margin="0,0,0,12"/>
 
-        <!-- Три огня светофора -->
-        <VerticalStackLayout Grid.Row="1" Spacing="16"
+        <!-- Три огня -->
+        <VerticalStackLayout Grid.Row="1"
+                             Spacing="16"
                              HorizontalOptions="Center"
                              VerticalOptions="Center">
-            <Frame x:Name="redBox"
-                   WidthRequest="120" HeightRequest="120"
-                   CornerRadius="60" HasShadow="False"
-                   BorderColor="Black" BackgroundColor="{StaticResource OffGray}">
-                <Frame.GestureRecognizers>
+
+            <!-- Красный -->
+            <Border x:Name="redBox"
+                    WidthRequest="120" HeightRequest="120"
+                    Stroke="Black" StrokeThickness="1"
+                    BackgroundColor="{StaticResource OffGray}">
+                <Border.StrokeShape>
+                    <shapes:RoundRectangle CornerRadius="60"/>
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
                     <TapGestureRecognizer Tapped="RedTapped"/>
-                </Frame.GestureRecognizers>
-            </Frame>
+                </Border.GestureRecognizers>
+            </Border>
 
-            <Frame x:Name="yellowBox"
-                   WidthRequest="120" HeightRequest="120"
-                   CornerRadius="60" HasShadow="False"
-                   BorderColor="Black" BackgroundColor="{StaticResource OffGray}">
-                <Frame.GestureRecognizers>
+            <!-- Жёлтый -->
+            <Border x:Name="yellowBox"
+                    WidthRequest="120" HeightRequest="120"
+                    Stroke="Black" StrokeThickness="1"
+                    BackgroundColor="{StaticResource OffGray}">
+                <Border.StrokeShape>
+                    <shapes:RoundRectangle CornerRadius="60"/>
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
                     <TapGestureRecognizer Tapped="YellowTapped"/>
-                </Frame.GestureRecognizers>
-            </Frame>
+                </Border.GestureRecognizers>
+            </Border>
 
-            <Frame x:Name="greenBox"
-                   WidthRequest="120" HeightRequest="120"
-                   CornerRadius="60" HasShadow="False"
-                   BorderColor="Black" BackgroundColor="{StaticResource OffGray}">
-                <Frame.GestureRecognizers>
+            <!-- Зелёный -->
+            <Border x:Name="greenBox"
+                    WidthRequest="120" HeightRequest="120"
+                    Stroke="Black" StrokeThickness="1"
+                    BackgroundColor="{StaticResource OffGray}">
+                <Border.StrokeShape>
+                    <shapes:RoundRectangle CornerRadius="60"/>
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
                     <TapGestureRecognizer Tapped="GreenTapped"/>
-                </Frame.GestureRecognizers>
-            </Frame>
+                </Border.GestureRecognizers>
+            </Border>
         </VerticalStackLayout>
 
         <!-- Кнопки -->
@@ -59,7 +75,6 @@
                 <Button x:Name="btnOff" Text="Välja" Clicked="OffClicked"/>
             </HorizontalStackLayout>
 
-            <!-- Доп. фичи (необязательно) -->
             <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
                 <Button x:Name="btnNight" Text="Öörežiim" Clicked="NightClicked"/>
                 <Button x:Name="btnAuto" Text="Automaatrežiim" Clicked="AutoClicked"/>

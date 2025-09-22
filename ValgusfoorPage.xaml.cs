@@ -1,42 +1,41 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 
 namespace YourNamespace;
 
 public partial class ValgusfoorPage : ContentPage
 {
-    enum Light { None, Red, Yellow, Green }
+    private enum Light { None, Red, Yellow, Green }
 
-    bool _isOn;               // включён ли светофор (foor on sees)
-    bool _nightMode;          // öörežiim (мигает жёлтый)
-    bool _autoMode;           // automaatrežiim (авто-смена)
-    Light _current = Light.None;
-    CancellationTokenSource? _cts; // для остановки фоновых циклов (night/auto)
+    private bool _isOn;
+    private bool _nightMode;
+    private bool _autoMode;
+    private Light _current = Light.None;
+    private CancellationTokenSource? _cts;
 
-    // Утилита цветов из ресурсов
-    Color OffGray => (Color)Resources["OffGray"];
-    Color RedOn => (Color)Resources["RedOn"];
-    Color YellowOn => (Color)Resources["YellowOn"];
-    Color GreenOn => (Color)Resources["GreenOn"];
+    private Color OffGray => (Color)Resources["OffGray"];
+    private Color RedOn => (Color)Resources["RedOn"];
+    private Color YellowOn => (Color)Resources["YellowOn"];
+    private Color GreenOn => (Color)Resources["GreenOn"];
 
     public ValgusfoorPage()
     {
         InitializeComponent();
-        SetLights(Light.None);          // все серые
-        SetTapsEnabled(false);          // клики по кругам запрещены, пока выключено
+        SetLights(Light.None);
+        SetTapsEnabled(false);
     }
 
-    /* -------------------- КНОПКИ Sisse / Välja -------------------- */
-
-    private void OnClicked(object sender, EventArgs e)
+    private async void OnClicked(object sender, EventArgs e)
     {
         _isOn = true;
         StopAllModes();
-        statusLabel.Text = "Vali valgus";   // по ТЗ: сначала “Vali valgus”
+        statusLabel.Text = "Vali valgus";
         SetTapsEnabled(true);
-        // Небольшая анимация на включении
-        this.ScaleTo(1.02, 150).ContinueWith(_ => this.ScaleTo(1.0, 100));
+        await this.ScaleTo(1.02, 150);
+        await this.ScaleTo(1.0, 100);
     }
 
     private void OffClicked(object sender, EventArgs e)
@@ -44,13 +43,11 @@ public partial class ValgusfoorPage : ContentPage
         _isOn = false;
         StopAllModes();
         statusLabel.Text = "Lülita esmalt foor sisse";
-        SetLights(Light.None);          // все серые
+        SetLights(Light.None);
         SetTapsEnabled(false);
     }
 
-    /* -------------------- КЛИКИ ПО КРУГАМ -------------------- */
-
-    private async void RedTapped(object? sender, TappedEventArgs e)
+    private async void RedTapped(object sender, TappedEventArgs e)
     {
         if (!CanTap()) return;
         await Bounce(sender as VisualElement);
@@ -58,7 +55,7 @@ public partial class ValgusfoorPage : ContentPage
         statusLabel.Text = "Seisa";
     }
 
-    private async void YellowTapped(object? sender, TappedEventArgs e)
+    private async void YellowTapped(object sender, TappedEventArgs e)
     {
         if (!CanTap()) return;
         await Bounce(sender as VisualElement);
@@ -66,7 +63,7 @@ public partial class ValgusfoorPage : ContentPage
         statusLabel.Text = "Valmista";
     }
 
-    private async void GreenTapped(object? sender, TappedEventArgs e)
+    private async void GreenTapped(object sender, TappedEventArgs e)
     {
         if (!CanTap()) return;
         await Bounce(sender as VisualElement);
@@ -74,46 +71,43 @@ public partial class ValgusfoorPage : ContentPage
         statusLabel.Text = "Sõida";
     }
 
-    bool CanTap() => _isOn && !_nightMode && !_autoMode;
+    private bool CanTap() => _isOn && !_nightMode && !_autoMode;
 
-    /* Маленькая анимация “нажатия” круга */
-    Task Bounce(VisualElement? el) =>
-        (el ?? this).ScaleTo(1.08, 120).ContinueWith(_ => (el ?? this).ScaleTo(1.0, 120));
-
-    /* -------------------- ÖÖREŽIIM (мигает жёлтый) -------------------- */
+    private async Task Bounce(VisualElement? el)
+    {
+        var v = el ?? this;
+        await v.ScaleTo(1.08, 120);
+        await v.ScaleTo(1.0, 120);
+    }
 
     private async void NightClicked(object sender, EventArgs e)
     {
         if (_nightMode)
         {
-            // Выключаем
             _nightMode = false;
             StopAllModes();
             statusLabel.Text = _isOn ? "Vali valgus" : "Lülita esmalt foor sisse";
             return;
         }
 
-        // Включаем night mode
         _nightMode = true;
         _autoMode = false;
-        _cts?.Cancel();
-        _cts = new CancellationTokenSource();
+        RestartCts();
 
-        SetTapsEnabled(false); // роняем тапы, чтобы не мешали
+        SetTapsEnabled(false);
         statusLabel.Text = "Öörežiim: kollane vilgub";
 
         try
         {
-            while (_nightMode && !_cts.IsCancellationRequested)
+            while (_nightMode && !_cts!.IsCancellationRequested)
             {
-                SetLights(Light.Yellow);          // включить жёлтый
+                SetLights(Light.Yellow);
                 await Task.WhenAll(
-                    this.FadeTo(0.95, 200),       // лёгкое затемнение страницы
+                    this.FadeTo(0.95, 200),
                     yellowBox.ScaleTo(1.06, 200)
                 );
                 await Task.Delay(500, _cts.Token);
 
-                // погасить всё
                 SetLights(Light.None);
                 await Task.WhenAll(
                     this.FadeTo(1.0, 200),
@@ -122,14 +116,12 @@ public partial class ValgusfoorPage : ContentPage
                 await Task.Delay(500, _cts.Token);
             }
         }
-        catch (TaskCanceledException) { /* ок */ }
-        finally
+        catch (TaskCanceledException)
         {
-            if (!_nightMode) return;
+            // нормальная остановка
         }
+        // НИКАКОГО return в finally — CS0157 исчезает
     }
-
-    /* -------------------- AUTOMaatrežiim (каждые 2 сек) -------------------- */
 
     private async void AutoClicked(object sender, EventArgs e)
     {
@@ -150,15 +142,15 @@ public partial class ValgusfoorPage : ContentPage
 
         _autoMode = true;
         _nightMode = false;
-        _cts?.Cancel();
-        _cts = new CancellationTokenSource();
+        RestartCts();
         SetTapsEnabled(false);
 
-        var sequence = new[] { Light.Red, Light.Green, Light.Yellow }; // классический цикл
-        int i = 0;
+        var sequence = new[] { Light.Red, Light.Green, Light.Yellow };
+        var i = 0;
+
         try
         {
-            while (_autoMode && !_cts.IsCancellationRequested)
+            while (_autoMode && !_cts!.IsCancellationRequested)
             {
                 var next = sequence[i++ % sequence.Length];
                 SetLights(next);
@@ -172,40 +164,52 @@ public partial class ValgusfoorPage : ContentPage
                 await Task.Delay(2000, _cts.Token);
             }
         }
-        catch (TaskCanceledException) { /* ок */ }
+        catch (TaskCanceledException)
+        {
+            // нормальная остановка
+        }
     }
 
-    /* -------------------- СЛУЖЕБНОЕ -------------------- */
-
-    void SetLights(Light active)
+    private void SetLights(Light active)
     {
         _current = active;
-
         redBox.BackgroundColor = active == Light.Red ? RedOn : OffGray;
         yellowBox.BackgroundColor = active == Light.Yellow ? YellowOn : OffGray;
         greenBox.BackgroundColor = active == Light.Green ? GreenOn : OffGray;
     }
 
-    void SetTapsEnabled(bool enabled)
+    private void SetTapsEnabled(bool enabled)
     {
-        // InputTransparent = true => элемент НЕ получает касания
-        redBox.InputTransparent = yellowBox.InputTransparent = greenBox.InputTransparent = !enabled;
+        var block = !enabled;
+        redBox.InputTransparent = block;
+        yellowBox.InputTransparent = block;
+        greenBox.InputTransparent = block;
     }
 
-    void StopAllModes()
+    private void StopAllModes()
     {
         _nightMode = false;
         _autoMode = false;
+
         _cts?.Cancel();
+        _cts?.Dispose();
         _cts = null;
+
         SetTapsEnabled(_isOn);
         this.Opacity = 1.0;
         yellowBox.Scale = 1.0;
     }
 
+    private void RestartCts()
+    {
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _cts = new CancellationTokenSource();
+    }
+
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        _cts?.Cancel(); // на всякий случай гасим фоновые циклы
+        _cts?.Cancel();
     }
 }
