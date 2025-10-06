@@ -7,6 +7,7 @@ public partial class AppShell : Shell
     public AppShell()
     {
         InitializeComponent();
+        // Регистрируем маршрут для навигации на светофор
         Routing.RegisterRoute(nameof(ValgusfoorPage), typeof(ValgusfoorPage));
     }
 }

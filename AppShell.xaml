@@ -1,21 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Shell
     x:Class="TARgv24.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:YourNamespace">
+    xmlns:local="clr-namespace:TARgv24">
 
-    <!-- Заголовок и т.д. оставь как есть -->
-
-    <ShellContent
-        Title="Avaleht"
-        ContentTemplate="{DataTemplate pages:StartPage}"
-        Route="StartPage" />
-
-    <!-- ДОБАВЬ ЭТО -->
-    <ShellContent
-        Title="Valgusfoor"
-        ContentTemplate="{DataTemplate pages:ValgusfoorPage}"
-        Route="ValgusfoorPage" />
+    <!-- Главная страница приложения -->
+    <TabBar>
+        <ShellContent
+            Title="Avaleht"
+            Route="start"
+            ContentTemplate="{DataTemplate local:StartPage}" />
+    </TabBar>
 
 </Shell>

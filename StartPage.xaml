@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TARgv24.StartPage"
-             Title="StartPage">
+<ContentPage
+    x:Class="TARgv24.StartPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="StartPage">
 
     <VerticalStackLayout Padding="24" Spacing="16">
         <Label Text="Näidised"
                FontSize="24"
                HorizontalOptions="Center" />
 
-        <!-- Кнопка светофора ДОЛЖНА быть внутри ContentPage -->
+        <!-- Кнопка для открытия светофора -->
         <Button Text="Ava Valgusfoor"
                 Clicked="OpenValgusfoorClicked"
                 Margin="0,8" />

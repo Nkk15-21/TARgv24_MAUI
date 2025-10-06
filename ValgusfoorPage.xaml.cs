@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 
-namespace YourNamespace;
+namespace TARgv24;
 
 public partial class ValgusfoorPage : ContentPage
 {

@@ -21,6 +21,7 @@ public partial class StartPage : ContentPage
 
     public StartPage()
     {
+        InitializeComponent();
         Title = "Avaleht";
 
         var vsl = new VerticalStackLayout
@@ -50,6 +51,11 @@ public partial class StartPage : ContentPage
         Content = new ScrollView { Content = vsl };
     }
 
+    private async void OpenValgusfoorClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(ValgusfoorPage));
+    }
+
     private async void MenuButton_Clicked(object? sender, EventArgs e)
     {
         if (sender is not Button b || b.CommandParameter is not int index) return;
@@ -57,11 +63,7 @@ public partial class StartPage : ContentPage
         // Создаём новую страницу по фабрике и пушим в стек навигации
         var page = _items[index].Create();
 
-        // Если приложение у тебя на NavigationPage — это верный путь:
         await Navigation.PushAsync(page);
 
-        // Если используешь Shell — лучше так:
-        // await Shell.Current.Navigation.PushAsync(page); 
-        // или зарегистрировать route и GoToAsync(route)
     }
 }
