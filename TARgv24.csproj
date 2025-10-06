@@ -87,6 +87,9 @@
 	  <MauiXaml Update="FigurePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="LumememmPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="NäidisPage_lumi.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

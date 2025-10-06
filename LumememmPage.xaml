@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="TARgv24.LumememmPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
+             Title="Lumememm">
+
+    <ContentPage.Resources>
+        <!-- Для Ellipse нужен Brush -->
+        <SolidColorBrush x:Key="SnowBrush" Color="White"/>
+
+        <!-- Для BoxView нужен именно Color -->
+        <Color x:Key="WoodColor">#6B3E0A</Color>
+        <Color x:Key="NoseColor">#FF7F27</Color>
+
+        <Style TargetType="Button">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="10,6"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <!-- Вся страница в 3 ряда: Панель, Ползунки, Площадка -->
+    <Grid Padding="16" RowDefinitions="Auto,Auto,*" RowSpacing="12">
+
+        <!-- Панель управления -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" ColumnSpacing="8">
+            <Picker x:Name="ActionPicker" Title="Vali tegevus" HorizontalOptions="Fill">
+                <Picker.Items>
+                    <x:String>Näita</x:String>
+                    <x:String>Peida</x:String>
+                    <x:String>Muuda värvi</x:String>
+                    <x:String>Sulata</x:String>
+                    <x:String>Tantsi</x:String>
+                </Picker.Items>
+            </Picker>
+            <Button Grid.Column="1" Text="Käivita" Clicked="OnActionClicked"/>
+        </Grid>
+
+        <!-- Ползунки -->
+        <Grid Grid.Row="1" ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="8" RowSpacing="6">
+            <Label Text="Läbipaistvus" VerticalOptions="Center"/>
+            <Slider x:Name="OpacitySlider" Grid.Column="1" Minimum="0" Maximum="1" Value="1" ValueChanged="OnOpacityChanged"/>
+            <Label Grid.Column="2" Text="{Binding Source={x:Reference OpacitySlider}, Path=Value, StringFormat='{}{0:0.00}'}" VerticalOptions="Center"/>
+
+            <Label Grid.Row="1" Text="Kiirus" VerticalOptions="Center"/>
+            <Stepper x:Name="SpeedStepper" Grid.Row="1" Grid.Column="1" Minimum="0.2" Maximum="2" Increment="0.1" Value="1" ValueChanged="OnSpeedChanged"/>
+            <Label Grid.Row="1" Grid.Column="2" Text="{Binding Source={x:Reference SpeedStepper}, Path=Value, StringFormat='x{0:0.0}'}" VerticalOptions="Center"/>
+        </Grid>
+
+        <!-- Площадка с ровным снеговиком (центр, фикс. пропорции) -->
+        <Grid Grid.Row="2" BackgroundColor="#E9EDF2" Padding="12">
+            <Grid HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="260">
+                <!-- Группа снеговика: один корневой контейнер, чтобы всё скрывалось/двигалось вместе -->
+                <Grid x:Name="SnowmanRoot" RowDefinitions="Auto,Auto,Auto" HorizontalOptions="Center">
+
+                    <!-- ШЛЯПА (top + brim) -->
+                    <Grid RowDefinitions="Auto,Auto" HorizontalOptions="Center" Margin="0,0,0,-6">
+                        <BoxView x:Name="HatTop"  Color="#20242A" WidthRequest="120" HeightRequest="38" CornerRadius="6"/>
+                        <BoxView x:Name="HatBrim" Color="#20242A" WidthRequest="150" HeightRequest="10" CornerRadius="5" Grid.Row="1" Margin="0,-3,0,0"/>
+                    </Grid>
+
+                    <!-- ГОЛОВА -->
+                    <shapes:Ellipse x:Name="Head" Fill="{StaticResource SnowBrush}" WidthRequest="120" HeightRequest="120" Grid.Row="1" HorizontalOptions="Center"/>
+
+                    <!-- НОС (морковка) -->
+                    <BoxView x:Name="Nose" Color="{StaticResource NoseColor}"
+                        WidthRequest="40" HeightRequest="10"
+                        HorizontalOptions="Center" Grid.Row="1" Margin="44,0,0,0"/>
+
+
+                    <!-- ТЕЛО -->
+                    <shapes:Ellipse x:Name="Body" Fill="{StaticResource SnowBrush}" WidthRequest="180" HeightRequest="180"
+                                    Grid.Row="2" HorizontalOptions="Center" Margin="0,-16,0,0"/>
+
+                    <!-- ПУГОВИЦЫ -->
+                    <VerticalStackLayout Grid.Row="2" Spacing="10" HorizontalOptions="Center" Margin="0,-10,0,0">
+                        <shapes:Ellipse WidthRequest="12" HeightRequest="12">
+                            <shapes:Ellipse.Fill>
+                                <SolidColorBrush Color="Black"/>
+                            </shapes:Ellipse.Fill>
+                        </shapes:Ellipse>
+                        <shapes:Ellipse WidthRequest="12" HeightRequest="12">
+                            <shapes:Ellipse.Fill>
+                                <SolidColorBrush Color="Black"/>
+                            </shapes:Ellipse.Fill>
+                        </shapes:Ellipse>
+                        <shapes:Ellipse WidthRequest="12" HeightRequest="12">
+                            <shapes:Ellipse.Fill>
+                                <SolidColorBrush Color="Black"/>
+                            </shapes:Ellipse.Fill>
+                        </shapes:Ellipse>
+                    </VerticalStackLayout>
+
+                    <!-- РУКИ -->
+                    <BoxView x:Name="ArmLeft"  Grid.Row="2" Color="{StaticResource WoodColor}"
+                        HeightRequest="6" WidthRequest="90" HorizontalOptions="Start"
+                           Margin="0,30,0,0" TranslationX="-70"/>
+
+                    <BoxView x:Name="ArmRight" Grid.Row="2" Color="{StaticResource WoodColor}"
+                        HeightRequest="6" WidthRequest="90" HorizontalOptions="End"
+                           Margin="0,30,0,0" TranslationX="70"/>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

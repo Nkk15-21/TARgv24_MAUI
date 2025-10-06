@@ -11,6 +11,13 @@
             Title="Avaleht"
             Route="start"
             ContentTemplate="{DataTemplate local:StartPage}" />
+
+        <ShellContent
+            Title="Lumememm"
+            ContentTemplate="{DataTemplate local:LumememmPage}"
+            Route="lumememm" />
+
     </TabBar>
+
 
 </Shell>

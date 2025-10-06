@@ -54,6 +54,8 @@ public partial class StartPage : ContentPage
     private async void OpenValgusfoorClicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(ValgusfoorPage));
+        await Shell.Current.GoToAsync("lumememm");
+
     }
 
     private async void MenuButton_Clicked(object? sender, EventArgs e)
