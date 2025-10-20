@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Color x:Key="PageBg">#0A1E35</Color>
+    <Color x:Key="TextColor">#E6F1FF</Color>
+    <Color x:Key="Primary">#1E90FF</Color>
+    <Color x:Key="ButtonBg">#1E90FF</Color>
+    <Color x:Key="ButtonText">#FFFFFF</Color>
+    <Color x:Key="CellBackground">#0F2745</Color>
+    <Color x:Key="CellBorder">#1E3A5F</Color>
+    <Color x:Key="Accent">#00E0FF</Color>
+
+</ResourceDictionary>

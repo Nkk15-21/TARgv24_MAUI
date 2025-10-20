@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TARgv24.Views.ResultsPage"
+             Title="Results"
+             BackgroundColor="{DynamicResource PageBg}">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label Text="Последние и лучшие результаты" FontSize="20" />
+            <CollectionView x:Name="List">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="12" CornerRadius="12">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Winner}" FontSize="16"/>
+                                <Label Text="{Binding HasWinner, StringFormat='Победа: {0}'}" />
+                                <Label Text="{Binding Moves, StringFormat='Ходов: {0}'}" />
+                                <Label Text="{Binding DurationSeconds, StringFormat='Секунды: {0:F1}'}" />
+                                <Label Text="{Binding FinishedAt, StringFormat='Дата: {0:yyyy-MM-dd HH:mm}'}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
