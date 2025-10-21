@@ -1,11 +1,9 @@
 ﻿using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using TripsTrapsTrull.Services;
-using TripsTrapsTrull.ViewModels;
-using TripsTrapsTrull.Views;
 
-namespace TripsTrapsTrull;
+
+namespace TARgv24;
 
 public static class MauiProgram
 {
@@ -19,19 +17,6 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
-
-        // Services
-        builder.Services.AddSingleton<ThemeService>();
-        builder.Services.AddSingleton<ScoreService>();
-
-        // ViewModels
-        builder.Services.AddTransient<GameViewModel>();
-
-        // Views
-        builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddTransient<GamePage>();
-        builder.Services.AddSingleton<ResultsPage>();
-        builder.Services.AddSingleton<SettingsPage>();
 
         return builder.Build();
     }
