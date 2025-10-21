@@ -1,38 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TripsTrapsTrull.App">
-	<Application.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Themes/LightTheme.xaml" />
-			</ResourceDictionary.MergedDictionaries>
-
-            <!-- Общие стили -->
-            <Style TargetType="Label">
-                <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
-                <Setter Property="FontFamily" Value="OpenSansSemibold" />
-            </Style>
-
-            <!-- Стиль для клетки (Border) -->
-            <Style x:Key="CellBorderStyle" TargetType="Border">
-                <Setter Property="Stroke" Value="{DynamicResource CellBorder}" />
-                <Setter Property="StrokeThickness" Value="1" />
-                <Setter Property="Background" Value="{DynamicResource CellBackground}" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="StrokeShape">
-                    <Setter.Value>
-                        <RoundRectangle CornerRadius="12" />
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style TargetType="Button">
-                <Setter Property="TextColor" Value="{DynamicResource ButtonText}" />
-                <Setter Property="BackgroundColor" Value="{DynamicResource ButtonBg}" />
-                <Setter Property="CornerRadius" Value="10" />
-                <Setter Property="Padding" Value="12,8" />
-            </Style>
-        </ResourceDictionary>
-    </Application.Resources>
+<Application
+    x:Class="TARgv24.App"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 </Application>

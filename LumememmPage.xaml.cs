@@ -14,13 +14,13 @@ public partial class LumememmPage : ContentPage
     Ellipse _head, _body;
     BoxView _hatTop, _hatBrim, _nose, _armLeft, _armRight;
 
-    public LumememmPage()
+    public LumememmPage() // конструктор страницы
     {
         InitializeComponent();
 
         // Берём элементы по имени из XAML (надёжно, без автогенерации полей)
-        _root = this.FindByName<Grid>("SnowmanRoot");
-        _head = this.FindByName<Ellipse>("Head");
+        _root = this.FindByName<Grid>("SnowmanRoot");// корневой элемент снеговика
+        _head = this.FindByName<Ellipse>("Head");// голова
         _body = this.FindByName<Ellipse>("Body");
         _hatTop = this.FindByName<BoxView>("HatTop");
         _hatBrim = this.FindByName<BoxView>("HatBrim");
@@ -31,67 +31,67 @@ public partial class LumememmPage : ContentPage
 
     // ==== Утилиты для работы с группой ====
 
-    void SetGroupOpacity(double v)
+    void SetGroupOpacity(double v)// установка прозрачности всей группы
     {
-        if (_root == null) return;
-        _ = _root.FadeTo(v, 1);
+        if (_root == null) return;// защита от ошибок
+        _ = _root.FadeTo(v, 1);// мгновенно устанавливаем прозрачность
     }
       
-    void SetGroupIsVisible(bool vis)
+    void SetGroupIsVisible(bool vis)// установка видимости всей группы
     {
         if (_root == null) return;
-        _root.IsVisible = vis;
+        _root.IsVisible = vis;// мгновенно устанавливаем видимость
     }
 
-    async Task DanceAsync()
+    async Task DanceAsync()// анимация танца
     {
         if (_root == null) return;
-        uint d = (uint)(220 / _speed);
-        await _root.TranslateTo(16, 0, d);
-        await _root.TranslateTo(-16, 0, d);
-        await _root.TranslateTo(0, 0, d);
-        await _root.RotateTo(8, d);
-        await _root.RotateTo(-8, d);
-        await _root.RotateTo(0, d);
-        await _root.TranslateTo(0, -10, d);
-        await _root.TranslateTo(0, 0, d);
+        uint d = (uint)(220 / _speed);// длительность одного движения
+        await _root.TranslateTo(16, 0, d);// вправо
+        await _root.TranslateTo(-16, 0, d);// влево
+        await _root.TranslateTo(0, 0, d);// в центр
+        await _root.RotateTo(8, d);// наклон вправо
+        await _root.RotateTo(-8, d);// наклон влево
+        await _root.RotateTo(0, d);// выпрямление
+        await _root.TranslateTo(0, -10, d);// вверх
+        await _root.TranslateTo(0, 0, d);// вниз
     }
 
-    async Task MeltAsync()
+    async Task MeltAsync()// анимация таяния
     {
         if (_root == null) return;
-        await Task.WhenAll(
-            _root.ScaleTo(0.75, (uint)(600 / _speed)),
-            _root.FadeTo(0, (uint)(700 / _speed))
+        await Task.WhenAll(// выполняем анимации параллельно
+            _root.ScaleTo(0.75, (uint)(600 / _speed)),// сжимаем
+            _root.FadeTo(0, (uint)(700 / _speed))// делаем прозрачным
         );
     }
 
     // ==== Обработчики ====
 
-    void OnOpacityChanged(object sender, ValueChangedEventArgs e) => SetGroupOpacity(e.NewValue);
+    void OnOpacityChanged(object sender, ValueChangedEventArgs e) => SetGroupOpacity(e.NewValue);// обработчик изменения прозрачности
 
-    void OnSpeedChanged(object sender, ValueChangedEventArgs e) => _speed = e.NewValue;
+    void OnSpeedChanged(object sender, ValueChangedEventArgs e) => _speed = e.NewValue;// обработчик изменения скорости
 
-    async void OnActionClicked(object sender, EventArgs e)
+    async void OnActionClicked(object sender, EventArgs e)// обработчик нажатия кнопки действия
     {
-        var action = ActionPicker.SelectedItem as string ?? "";
+        var action = ActionPicker.SelectedItem as string ?? "";// получаем выбранное действие
 
-        switch (action)
+        switch (action)// выполняем действие
         {
-            case "Peida":
-                SetGroupIsVisible(false);
+            case "Peida":// спрятать
+                SetGroupIsVisible(false);// мгновенно скрываем
                 break;
 
-            case "Näita":
+            case "Näita":// показать
                 SetGroupIsVisible(true);
-                await _root.FadeTo(1, 150);
-                await _root.ScaleTo(1, 150);
+                await _root.FadeTo(1, 150);// плавно показываем
+                await _root.ScaleTo(1, 150);// плавно масштабируем
                 break;
 
-            case "Muuda värvi":
+            case "Muuda värvi":// изменить цвет
                 {
                     var rnd = new Random();
-                    var c = Color.FromRgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                    var c = Color.FromRgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));// случайный цвет
 
                     // тело немного полупрозрачное — выглядит естественнее
                     _body.Fill = new SolidColorBrush(c.WithAlpha(0.9f));

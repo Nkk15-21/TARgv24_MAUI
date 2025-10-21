@@ -1,16 +1,16 @@
-﻿namespace TARgv24
-{
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
-            NavigationPage MainPage = new NavigationPage(new AppShell());
-        }
+﻿namespace TARgv24;
 
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new AppShell());
-        }
+public partial class App : Application
+{
+    public App()
+    {
+        InitializeComponent();
+    }
+
+    protected override Window CreateWindow(IActivationState? activationState)
+    {
+
+        return new Window(new NavigationPage(new AppShell()));
+
     }
 }
